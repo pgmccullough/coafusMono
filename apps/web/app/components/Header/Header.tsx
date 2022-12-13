@@ -1,5 +1,11 @@
-import { NavLink, Outlet, useMatches } from '@remix-run/react';
+import { NavLink, useMatches } from '@remix-run/react';
 import type { RootLoaderData } from '~/root';
+import styled from '@emotion/styled';
+
+const MyStyledH1 = styled.h1`
+  font-size: 5rem;
+  color: green;
+`;
 
 export const Header = () => {
     const matches = useMatches();
@@ -13,6 +19,7 @@ export const Header = () => {
     ) : (
         <div className="page">
             <nav>
+            <MyStyledH1>Welcome to Remix</MyStyledH1>
                 <ul className="container">
                     <div className="nav-pages">
                         {topLvlPages?.map((page:any) => {
