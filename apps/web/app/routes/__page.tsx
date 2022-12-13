@@ -12,43 +12,6 @@ export default function Index() {
         <div></div>
     ) : (
         <div className="page">
-            <nav>
-                <ul className="container">
-                    <div className="nav-pages">
-                        {topLvlPages?.map((page:any) => {
-                            const subPages = pages.filter((subPage:any) => 
-                                subPage.parentNav && subPage.parentNav.length
-                                    ?subPage.parentNav[0]?.id===page.id
-                                    :""
-                            );
-                            return (
-                                <div key={page.slug}>
-                                    <li key={page.slug}>
-                                        {!page.isDummy?
-                                            <NavLink to={page.slug ?? '/'}>
-                                                {page.title}
-                                            </NavLink>:
-                                            <>{page.title}</>
-                                        }
-                                    </li>
-                                    {subPages.length?
-                                        <div className="subNavContainer">
-                                        {subPages.map(subPage => 
-                                            <li key={subPage.slug}>
-                                                <NavLink to={subPage.slug ?? '/'}>
-                                                    {subPage.title}
-                                                </NavLink>
-                                            </li>
-                                        )}
-                                        </div>:
-                                        ""
-                                    }
-                                </div>
-                            )
-                        })}
-                    </div>
-                </ul>
-            </nav>
             <Outlet />
         </div>
     );

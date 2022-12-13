@@ -15,6 +15,7 @@ import {
     Scripts,
     ScrollRestoration,
 } from '@remix-run/react';
+import { Header } from './components/Header/Header';
 
 import uiStyles from '@org/ui/styles.css';
 import styles from './styles/global.css';
@@ -81,6 +82,7 @@ export default function App() {
                 />
             </head>
             <body>
+                <Header />
                 <Outlet />
                 <ScrollRestoration />
                 <Scripts />
