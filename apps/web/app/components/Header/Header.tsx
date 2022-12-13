@@ -6,7 +6,8 @@ import { css } from '@emotion/react';
 
 const headerH1 = css`
   font-size: 5rem;
-  color: yellow;
+  color: #000;
+  font-family: 'COAF Serif';
 `;
 
 export const Header = () => {

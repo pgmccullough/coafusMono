@@ -18,6 +18,7 @@ import {
 } from '@remix-run/react';
 import { Header } from './components/Header/Header';
 
+import { fontFace } from './assets/typography/typography';
 import uiStyles from '@org/ui/styles.css';
 import styles from './styles/global.css';
 
@@ -50,10 +51,6 @@ export const loader: LoaderFunction = async ({
     context: { payload, user },
     request,
 }): Promise<RootLoaderData | TypedResponse<never>> => {
-    // const { pathname } = new URL(request.url);
-    // if (pathname === '/') {
-    //     return redirect('/home');
-    // }
 
     const { docs: pages } = await payload.find({
         limit: 100,
@@ -69,6 +66,8 @@ const globalCSS = css`
 *,*:before,*:after {
   box-sizing: border-box
 }
+
+${fontFace}
 
 body{ 
     background: pink;
