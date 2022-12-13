@@ -1,3 +1,4 @@
+import { Global, css, jsx } from '@emotion/react';
 import type { Page, User } from '@org/cms';
 import type {
     ErrorBoundaryComponent,
@@ -22,7 +23,7 @@ import styles from './styles/global.css';
 
 export const meta: MetaFunction = () => ({
     charset: 'utf-8',
-    title: 'Payload CMS & Remix Monorepo',
+    title: 'The College of Arms Foundation',
     viewport: 'width=device-width,initial-scale=1',
 });
 
@@ -64,6 +65,16 @@ export const loader: LoaderFunction = async ({
     return { pages, user };
 };
 
+const globalCSS = css`
+*,*:before,*:after {
+  box-sizing: border-box
+}
+
+body{ 
+    background: pink;
+}
+`
+
 export default function App() {
     return (
         <html lang="en">
@@ -75,6 +86,7 @@ export default function App() {
                 : null}
             </head>
             <body>
+                <Global styles={globalCSS} />
                 <Header />
                 <Outlet />
                 <ScrollRestoration />

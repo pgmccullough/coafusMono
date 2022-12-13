@@ -1,10 +1,12 @@
+/** @jsxImportSource @emotion/react */
+/** @jsxFrag React.Fragment */
 import { NavLink, useMatches } from '@remix-run/react';
 import type { RootLoaderData } from '~/root';
-import styled from '@emotion/styled';
+import { css } from '@emotion/react';
 
-const MyStyledH1 = styled.h1`
+const headerH1 = css`
   font-size: 5rem;
-  color: green;
+  color: yellow;
 `;
 
 export const Header = () => {
@@ -19,7 +21,7 @@ export const Header = () => {
     ) : (
         <div className="page">
             <nav>
-            <MyStyledH1>Welcome to Remix</MyStyledH1>
+            <h1 css={headerH1}>College of Arms Foundation</h1>
                 <ul className="container">
                     <div className="nav-pages">
                         {topLvlPages?.map((page:any) => {

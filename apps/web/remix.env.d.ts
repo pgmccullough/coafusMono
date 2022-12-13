@@ -1,5 +1,6 @@
 /// <reference types="@remix-run/dev" />
 /// <reference types="@remix-run/node/globals" />
+/// <reference types="@emotion/react/types/css-prop" />
 
 import type { Response } from 'express';
 import type { Payload, User } from '@org/cms';
