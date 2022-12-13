@@ -48,12 +48,13 @@ export const loader: LoaderFunction = async ({
     context: { payload, user },
     request,
 }): Promise<RootLoaderData | TypedResponse<never>> => {
-    const { pathname } = new URL(request.url);
-    if (pathname === '/') {
-        return redirect('/home');
-    }
+    // const { pathname } = new URL(request.url);
+    // if (pathname === '/') {
+    //     return redirect('/home');
+    // }
 
     const { docs: pages } = await payload.find({
+        limit: 100,
         collection: 'pages',
         user,
         overrideAccess: false,

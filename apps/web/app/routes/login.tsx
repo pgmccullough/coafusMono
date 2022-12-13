@@ -2,7 +2,6 @@ import type { ActionFunction } from '@remix-run/node';
 import { Response } from '@remix-run/node';
 import { redirect } from '@remix-run/node';
 import { Link } from '@remix-run/react';
-import { Logo } from '~/components/Logo';
 
 export const action: ActionFunction = async ({
     context: { payload, user, res },
@@ -34,7 +33,6 @@ export default function Login() {
     return (
         <div className="container viewport-size place-content-center">
             <div className="row gap-2 justify-center mb-8">
-                <Logo className="logo-large" />
                 <h1>Login</h1>
             </div>
             <form

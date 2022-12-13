@@ -29,6 +29,78 @@ export const Pages: CollectionConfig = {
             required: true,
         },
         {
+            name: 'inNav',
+            label: 'List in navigation',
+            type: 'checkbox',
+            defaultValue: false,
+        },
+        {
+            name: 'topLvl',
+            label: 'Top level link',
+            type: 'checkbox',
+            defaultValue: true,
+            admin: {
+                condition: (data, siblingData) => {
+                  if (data.inNav) {
+                    return true;
+                  } else {
+                    return false;
+                  }
+                }
+            }
+        },
+        {
+            name: 'isDummy',
+            label: 'Dummy placeholder',
+            type: 'checkbox',
+            defaultValue: false,
+            admin: {
+                condition: (data, siblingData) => {
+                  if (data.inNav&&data.topLvl) {
+                    return true;
+                  } else {
+                    return false;
+                  }
+                }
+            }
+        },
+        {
+            name: 'parentNav',
+            label: 'Parent Page',
+            type: 'relationship',
+            relationTo: 'pages',
+            hasMany: true,
+            filterOptions: ({ relationTo, siblingData }) => {
+                return {
+                    'topLvl': {equals: true}
+                }
+            },
+            admin: {
+                condition: (data) => {
+                  if (data.inNav&&!data.topLvl) {
+                    return true;
+                  } else {
+                    return false;
+                  }
+                }
+            }
+        },
+        {
+            name: 'navOrder',
+            label: 'Order',
+            type: 'number',
+            defaultValue: -1,
+            admin: {
+                condition: (data, siblingData) => {
+                  if (data.inNav) {
+                    return true;
+                  } else {
+                    return false;
+                  }
+                }
+            }
+        },
+        {
             name: 'image',
             label: 'Featured Image',
             type: 'upload',
