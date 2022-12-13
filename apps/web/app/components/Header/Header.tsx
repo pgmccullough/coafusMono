@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-/** @jsxFrag React.Fragment */
+
 import { NavLink, useMatches } from '@remix-run/react';
 import type { RootLoaderData } from '~/root';
 import { css } from '@emotion/react';

@@ -1,4 +1,4 @@
-import { Global, css, jsx } from '@emotion/react';
+import { Global, css } from '@emotion/react';
 import type { Page, User } from '@org/cms';
 import type {
     ErrorBoundaryComponent,
