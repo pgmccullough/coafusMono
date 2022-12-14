@@ -20,7 +20,6 @@ import { Header } from './components/Header/Header';
 
 import { fontFace } from './assets/typography/typography';
 import uiStyles from '@org/ui/styles.css';
-import styles from './styles/global.css';
 
 export const meta: MetaFunction = () => ({
     charset: 'utf-8',
@@ -32,11 +31,7 @@ export const links: LinksFunction = () => [
     {
         rel: 'stylesheet',
         href: uiStyles,
-    },
-    {
-        rel: 'stylesheet',
-        href: styles,
-    },
+    }
 ];
 
 export type RootLoaderData = {
@@ -71,6 +66,7 @@ ${fontFace}
 
 body{ 
     background: pink;
+    margin: 0;
 }
 `
 
