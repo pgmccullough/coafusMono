@@ -6,26 +6,62 @@ import { css } from '@emotion/react';
 
 const header = css`
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     width: 100%;
     background: #fff;
+    height: 70px;
+    padding: 10px 0;
 `;
 
 const header__title = css`
-    font-family: 'COAF Serif';
-    font-size: 3rem;
-    font-weight: 300;
-    color: #000;
-    border: 1px red solid;
+  margin: 0;
+  font-family: 'COAF Serif';
+  font-size: 3vw;
+  font-weight: 300;
+  text-align: center;
+  color: #000;
+  width: 50%;
 `;
 
 const header__links = css`
     display: flex;
-    font-family: sans;
+    width: 50%;
+    align-items: flex-end;
+    font-family: 'COAF Sans';
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    padding: 0 5%;
+    & a {
+      color: black;
+      text-decoration: none;
+    }
 `;
 
+const header__subContainer = css`
+  display: none;
+  background: #fff;
+  position: absolute;
+  border-top: 4px purple solid;
+  border-bottom: 4px purple solid;
+  text-align: center;
+  margin: 0;
+  flex-direction:column;
+  /* align-items:stretch; */
+  width: 300px;
+  transform: translateX(calc(-16.66% - 10px));
+`;
+
+const header__linkContainer = css`
+  position: relative;
+  width: 33.33%;
+  text-align: center;
+  cursor: pointer;
+`
+
 const header__subLink = css`
-    display: block;
+  padding: 0.125rem 1rem;
+  white-space: nowrap;
 `;
 
 export const Header = () => {
@@ -53,7 +89,10 @@ export const Header = () => {
                             :""
                     );
                     return (
-                        <div key={page.slug}>
+                        <div 
+                          key={page.slug}
+                          css={header__linkContainer}
+                        >
                             {!page.isDummy?
                                 <NavLink to={page.slug ?? '/'}>
                                     {page.title}
@@ -61,7 +100,7 @@ export const Header = () => {
                                 <>{page.title}</>
                             }
                             {subPages.length?
-                                <div className="subNavContainer">
+                                <div css={header__subContainer}>
                                 {subPages.map(subPage => 
                                         <NavLink 
                                             key={subPage.slug} 

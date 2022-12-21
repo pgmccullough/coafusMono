@@ -10,7 +10,7 @@ export const meta: MetaFunction = ({ parentsData, params }) => {
         root: { pages },
     } = parentsData;
 
-    const page = findPageBySlug(pageSlug ?? 'home', pages);
+    const page = findPageBySlug(pageSlug ?? 'presidents-message', pages);
     return {
         title: page?.meta.title,
         description: page?.meta.description,
@@ -23,7 +23,7 @@ export default function Page() {
 
     const [{ data }] = useMatches();
     const { pages } = data as RootLoaderData;
-    const page = findPageBySlug(pageSlug ?? 'home', pages);
+    const page = findPageBySlug(pageSlug ?? 'presidents-message', pages);
 
     return (
         <main className="page-content container">
