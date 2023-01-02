@@ -7,14 +7,15 @@ import { css } from '@emotion/react';
 const header = css`
     display: flex;
     justify-content: space-evenly;
+    align-items: flex-end;
     width: 100%;
     background: #fff;
-    height: 70px;
-    padding: 10px 0;
+    padding: 1rem 0;
 `;
 
 const header__title = css`
   margin: 0;
+  line-height: 3vw;
   font-family: 'COAF Serif';
   font-size: 3vw;
   font-weight: 300;
@@ -38,20 +39,6 @@ const header__links = css`
     }
 `;
 
-const header__subContainer = css`
-  display: none;
-  background: #fff;
-  position: absolute;
-  border-top: 4px purple solid;
-  border-bottom: 4px purple solid;
-  text-align: center;
-  margin: 0;
-  flex-direction:column;
-  /* align-items:stretch; */
-  width: 300px;
-  transform: translateX(calc(-16.66% - 10px));
-`;
-
 const header__linkContainer = css`
   position: relative;
   width: 33.33%;
@@ -59,9 +46,25 @@ const header__linkContainer = css`
   cursor: pointer;
 `
 
+const header__subContainer = css`
+  display: flex;
+  background: #fff;
+  position: absolute;
+  border-top: 4px #010193 solid;
+  border-bottom: 4px #010193 solid;
+  margin: 0;
+  flex-direction: column;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 1rem;
+`;
+
 const header__subLink = css`
   padding: 0.125rem 1rem;
   white-space: nowrap;
+  &:hover {
+    background: #eee;
+  }
 `;
 
 export const Header = () => {
