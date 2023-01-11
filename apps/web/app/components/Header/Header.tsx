@@ -42,9 +42,20 @@ const header__links = css`
 const header__linkContainer = css`
   position: relative;
   width: 33.33%;
+  height: 100%;
   text-align: center;
   cursor: pointer;
+  &:hover .header__subContainer--padding {
+    visibility: visible;
+  } 
 `
+
+const header__subContainerPadding = css`
+  position: relative;
+  padding-top: 1rem;
+  margin-bottom: -1rem;
+  visibility: hidden;
+`;
 
 const header__subContainer = css`
   display: flex;
@@ -56,7 +67,17 @@ const header__subContainer = css`
   flex-direction: column;
   left: 50%;
   transform: translateX(-50%);
-  margin-top: 1rem;
+  /* margin-top: 1rem; */
+  &:before {
+    content: "";
+    position: absolute;
+    border-left: 6px transparent solid;
+    border-right: 6px transparent solid;
+    border-bottom: 6px #010193 solid;
+    margin-top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 `;
 
 const header__subLink = css`
@@ -92,31 +113,36 @@ export const Header = () => {
                             :""
                     );
                     return (
-                        <div 
-                          key={page.slug}
-                          css={header__linkContainer}
-                        >
-                            {!page.isDummy?
-                                <NavLink to={page.slug ?? '/'}>
-                                    {page.title}
-                                </NavLink>:
-                                <>{page.title}</>
-                            }
-                            {subPages.length?
-                                <div css={header__subContainer}>
-                                {subPages.map(subPage => 
-                                        <NavLink 
-                                            key={subPage.slug} 
-                                            to={subPage.slug ?? '/'}
-                                            css={header__subLink}
-                                        >
-                                            {subPage.title}
-                                        </NavLink>
-                                )}
-                                </div>:
-                                ""
-                            }
-                        </div>
+                      <div 
+                        key={page.slug}
+                        css={header__linkContainer}
+                      >
+                          {!page.isDummy?
+                              <NavLink to={page.slug ?? '/'}>
+                                  {page.title}
+                              </NavLink>:
+                              <>{page.title}</>
+                          }
+                          {subPages.length?
+                            <div 
+                              css={header__subContainerPadding}
+                              className="header__subContainer--padding"
+                            >
+                            <div css={header__subContainer}>
+                            {subPages.map(subPage => 
+                                    <NavLink 
+                                        key={subPage.slug} 
+                                        to={subPage.slug ?? '/'}
+                                        css={header__subLink}
+                                    >
+                                        {subPage.title}
+                                    </NavLink>
+                            )}
+                            </div>
+                            </div>:
+                            ""
+                          }
+                      </div>
                     )
                 })}
             </div>
