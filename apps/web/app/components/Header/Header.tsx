@@ -238,13 +238,28 @@ const mobileMenu__bars = css`
   width: 3.5rem;
   height: 0.4rem;
   background: #010193;
+  transition: 0.5s;
 `;
+
+const mobileMenuBar__close1 = css`
+  transform: rotate(45deg) translate(0.5rem, 0.5rem);
+`
+
+const mobileMenuBar__close2 = css`
+  width: 0;
+  margin-left: 1.75rem;
+`
+
+const mobileMenuBar__close3 = css`
+  transform: rotate(-45deg) translate(0.75rem, -0.75rem);
+`
 
 export const Header = () => {
     const matches = useMatches();
 
     const [ searchVis, setSearchVis ] = useState<boolean>( false );
     const [ searchTerm, setSearchTerm ] = useState<string>( "" );
+    const [ mobileMenuExpand, setMobileMenuExpand ] = useState<boolean>( false );
 
     const searchInputEl = useRef<HTMLInputElement>( null );
 
@@ -314,10 +329,10 @@ export const Header = () => {
                   )
               })}
           </div>
-          <div css={mobileMenu}>
-            <div css={mobileMenu__bars} />
-            <div css={mobileMenu__bars} />
-            <div css={mobileMenu__bars} />
+          <div css={mobileMenu} onClick={() => setMobileMenuExpand(!mobileMenuExpand)}>
+            <div css={[mobileMenu__bars,mobileMenuExpand?mobileMenuBar__close1:""]} />
+            <div css={[mobileMenu__bars,mobileMenuExpand?mobileMenuBar__close2:""]} />
+            <div css={[mobileMenu__bars,mobileMenuExpand?mobileMenuBar__close3:""]} />
           </div>
         </nav>
         <div css={subHeader__wrap}>
