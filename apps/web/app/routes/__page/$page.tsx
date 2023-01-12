@@ -26,7 +26,7 @@ export default function Page() {
     const page = findPageBySlug(pageSlug ?? 'presidents-message', pages);
 
     return (
-        <main className="page-content container">
+        <main>
             {page?.layout ? (
                 <RenderBlocks layout={page.layout} />
             ) : (

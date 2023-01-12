@@ -65,7 +65,6 @@ const globalCSS = css`
 ${fontFace}
 
 body{ 
-    background: pink;
     margin: 0;
 }
 `
