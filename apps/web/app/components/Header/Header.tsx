@@ -254,6 +254,39 @@ const mobileMenuBar__close3 = css`
   transform: rotate(-45deg) translate(0.75rem, -0.75rem);
 `
 
+const mobileMenuContainer = css`
+  position: fixed;
+  top: 6.5rem;
+  width: 100vw;
+  height: calc(100vh - 6.5rem);
+  background: #010193;
+  left: 100vw;
+  transition: 0.25s;
+  color: #ccc;
+  font-family: 'COAF Sans';
+  padding: 2rem;
+  text-transform: uppercase;
+  line-height: 2rem;
+  & a {
+    color: #ccc;
+    display: block;
+    text-decoration: none;
+  }
+  & h1 {
+    font-family: 'COAF Serif';
+    margin: 1rem 0 0 -0.5rem;
+    font-weight: 300;
+    line-height: 3rem;
+  }
+  ${screen.tablet} {
+    display: none;
+  }
+`;
+
+const mobileMenuContainer__vis = css`
+  left: 0;
+`;
+  
 export const Header = () => {
     const matches = useMatches();
 
@@ -289,45 +322,45 @@ export const Header = () => {
         <nav css={header}>
           <h1 css={header__title}>College of Arms Foundation</h1>
           <div css={header__links}>
-              {topLvlPages?.map((page:any) => {
-                  const subPages = pages.filter((subPage:any) => 
-                      subPage.parentNav && subPage.parentNav.length
-                          ?subPage.parentNav[0]?.id===page.id
-                          :""
-                  );
-                  return (
-                    <div 
-                      key={page.slug}
-                      css={header__linkContainer}
-                    >
-                        {!page.isDummy?
-                            <NavLink to={page.slug ?? '/'}>
-                                {page.title}
-                            </NavLink>:
-                            <>{page.title}</>
-                        }
-                        {subPages.length?
-                          <div 
-                            css={header__subContainerPadding}
-                            className="header__subContainer--padding"
-                          >
-                          <div css={header__subContainer}>
-                          {subPages.map(subPage => 
-                                  <NavLink 
-                                      key={subPage.slug} 
-                                      to={subPage.slug ?? '/'}
-                                      css={header__subLink}
-                                  >
-                                      {subPage.title}
-                                  </NavLink>
-                          )}
-                          </div>
-                          </div>:
-                          ""
-                        }
-                    </div>
-                  )
-              })}
+            {topLvlPages?.map((page:any) => {
+                const subPages = pages.filter((subPage:any) => 
+                    subPage.parentNav && subPage.parentNav.length
+                        ?subPage.parentNav[0]?.id===page.id
+                        :""
+                );
+                return (
+                  <div 
+                    key={page.slug}
+                    css={header__linkContainer}
+                  >
+                      {!page.isDummy?
+                          <NavLink to={page.slug ?? '/'}>
+                              {page.title}
+                          </NavLink>:
+                          <>{page.title}</>
+                      }
+                      {subPages.length?
+                        <div 
+                          css={header__subContainerPadding}
+                          className="header__subContainer--padding"
+                        >
+                        <div css={header__subContainer}>
+                        {subPages.map(subPage => 
+                                <NavLink 
+                                    key={subPage.slug} 
+                                    to={subPage.slug ?? '/'}
+                                    css={header__subLink}
+                                >
+                                    {subPage.title}
+                                </NavLink>
+                        )}
+                        </div>
+                        </div>:
+                        ""
+                      }
+                  </div>
+                )
+            })}
           </div>
           <div css={mobileMenu} onClick={() => setMobileMenuExpand(!mobileMenuExpand)}>
             <div css={[mobileMenu__bars,mobileMenuExpand?mobileMenuBar__close1:""]} />
@@ -361,6 +394,42 @@ export const Header = () => {
           </div>
         </div>
         <div css={subHeader__arms} />
+        <div css={[mobileMenuContainer,mobileMenuExpand?mobileMenuContainer__vis:""]}>
+          {topLvlPages?.map((page:any) => {
+            const subPages = pages.filter((subPage:any) => 
+              subPage.parentNav && subPage.parentNav.length
+                ?subPage.parentNav[0]?.id===page.id
+                :""
+            );
+            return (
+              <div key={`${page.slug}_mobile`}>
+                {!page.isDummy
+                  ?<NavLink
+                    onClick={() => setMobileMenuExpand(false)}
+                    to={page.slug ?? '/'}
+                  >
+                    <h1>{page.title}</h1>
+                  </NavLink>
+                  :<h1>{page.title}</h1>
+                }
+                {subPages.length
+                  ?<div>
+                    {subPages.map(subPage => 
+                      <NavLink 
+                        key={`${subPage.slug}_mobile`}
+                        onClick={() => setMobileMenuExpand(false)}
+                        to={subPage.slug ?? '/'}
+                      >
+                        {subPage.title}
+                      </NavLink>
+                    )}
+                  </div>
+                  :""
+                }
+              </div>
+            )
+          })}
+        </div>
       </>
     );
 }
