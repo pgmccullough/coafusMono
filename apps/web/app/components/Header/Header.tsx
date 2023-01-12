@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import { NavLink, useMatches } from '@remix-run/react';
+import { useRef, useState } from 'react';
 import type { RootLoaderData } from '~/root';
 import { css } from '@emotion/react';
 import redStripes from '../../assets/subHead-red-stripes.svg';
@@ -8,41 +9,67 @@ import redStripesReverse from '../../assets/subHead-red-stripes-reverse.svg';
 import headerArms from '../../assets/header_arms.png';
 import searchIcon from '../../assets/search_magnifying.svg';
 
+const screen = {
+  tablet: "@media (min-width: 680px)",
+  desktop: "@media (min-width: 920px)"
+}
+
 const header = css`
-  position: relative;
+  position: fixed;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: flex-start;
   align-items: flex-end;
   width: 100%;
   background: #fff;
   padding: 1rem 0;
-  z-index: 1;
+  z-index: 2;
+  top: 0;
+  ${screen.tablet} {
+    height: 4rem;
+    justify-content: space-evenly;
+  }
 `;
 
 const header__title = css`
   margin: 0;
-  line-height: 3vw;
   font-family: 'COAF Serif';
-  font-size: 3vw;
+  font-size: 1.25rem;
   font-weight: 300;
-  text-align: center;
+  line-height: 1.5rem;
+  text-align: left;
   color: #000;
-  width: 50%;
+  width: 12rem;
+  margin-left: 5.5rem;
+  ${screen.tablet} {
+    width: 100vw;
+    margin-left: 0;
+    text-align: center;
+    font-size: 2rem;
+    line-height: 2rem;
+  }
+  ${screen.desktop} {
+    width: 50vw;
+    font-size: 3vw;
+    line-height: 3vw;
+  }
 `;
 
 const header__links = css`
+  display: none;
+  width: 50%;
+  align-items: flex-end;
+  font-family: 'COAF Sans';
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  padding: 0 5%;
+  & a {
+    color: black;
+    text-decoration: none;
+  }
+  ${screen.desktop} {
     display: flex;
-    width: 50%;
-    align-items: flex-end;
-    font-family: 'COAF Sans';
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: 0.8rem;
-    padding: 0 5%;
-    & a {
-      color: black;
-      text-decoration: none;
-    }
+  }
 `;
 
 const header__linkContainer = css`
@@ -94,40 +121,90 @@ const header__subLink = css`
 `;
 
 const subHeader__wrap = css`
+  position: fixed;
   filter: drop-shadow(0 0 6px #000);
-  z-index: -1;
+  z-index: 1;
+  top: 5rem;
+  ${screen.tablet} {
+    top: 4rem;
+  }
 `;
 
 const subHeader = css`
-  position: relative;
   display: flex;
   width: 100vw;
-  height: 3rem;
+  height: 1.5rem;
   background: #fff;
   left: 0vw;
-  clip-path: polygon(0% 0%,100% 0%,96.5vw 100%,3.5vw 100%);
+  ${screen.tablet} {
+    height: 3rem;
+    clip-path: polygon(0% 0%,100% 0%,calc(100% - 3rem) 100%,3rem 100%);
+  }
 `;
 
 const subHeader__left = css`
   position: relative;
   left: 0vw;
-  width: 50vw;
+  width: 100vw;
   background: url('${redStripes}');
+  ${screen.tablet} {
+    width: 50vw;
+  }
 `;
 
 const subHeader__right = css`
+  display: none;
   width: 50vw;
   background: url('${redStripesReverse}');
+  ${screen.tablet} {
+    display: flex;
+    justify-content: flex-end;
+  }
 `;
 
 const subHeader__arms = css`
-  position: absolute;
+  position: fixed;
   z-index: 2;
   width: 69px;
   height: 94px;
-  top: 4rem;
-  left: calc(50vw - 34.5px);
+  top: 0.5rem;
+  left: 0.5rem;
   background: url('${headerArms}');
+  ${screen.tablet} {
+    top: 4rem;
+    margin-top: -1rem;
+    left: calc(50vw - 34.5px);
+  }
+`;
+
+const subHeader__search__input = css`
+  display: flex;
+  height: 3rem;
+  border-left: 4px #010193 solid;
+  background: #fff;
+  width: 0;
+  transition: 0.25s;
+  overflow: hidden;
+`;
+
+const subHeader__search__inputExpanded = css`
+  width: calc(50vw - 12rem);
+`;
+
+const subHeader__search__inputInner = css`
+  border: 0;
+  height: 3rem;
+  width: calc(50vw - 12rem);
+  padding-left: 1rem;
+  font: 1.5rem 'COAF Sans';
+`;
+
+const subHeader__search__collapse = css`
+  font: 2.5rem 'COAF Sans';
+  font-weight: 700;
+  transform: rotate(45deg);
+  margin: 0 0.25rem;
+  cursor: pointer;
 `;
 
 const subHeader__search = css`
@@ -136,13 +213,40 @@ const subHeader__search = css`
   background-position: 1rem;
   width: 6.5rem;
   height: 3rem;
-  position: absolute;
-  right: 0px;
   cursor: pointer;
+`;
+
+const mobileMenu = css`
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 1rem 0;
+  right: 0;
+  top: 0;
+  z-index: 2;
+  width: 5rem;
+  height: 5rem;
+  cursor: pointer;
+  ${screen.tablet} {
+    display: none;
+  }
+`;
+
+const mobileMenu__bars = css`
+  position: relative;
+  width: 3.5rem;
+  height: 0.4rem;
+  background: #010193;
 `;
 
 export const Header = () => {
     const matches = useMatches();
+
+    const [ searchVis, setSearchVis ] = useState<boolean>( false );
+    const [ searchTerm, setSearchTerm ] = useState<string>( "" );
+
+    const searchInputEl = useRef<HTMLInputElement>( null );
 
     const [{ data }] = matches;
     const { pages, user } = (data as RootLoaderData) || {};
@@ -152,6 +256,16 @@ export const Header = () => {
     ).sort(
         (a:any,b:any)=>a.navOrder-b.navOrder
     )
+
+    const searchClick = () => {
+      if(searchVis) {
+        // Search function goes here
+        console.log(searchTerm);
+      } else {
+        setSearchVis(true);
+        searchInputEl.current?.focus();
+      }
+    }
 
     return !pages ? (
         <div></div>
@@ -200,12 +314,34 @@ export const Header = () => {
                   )
               })}
           </div>
+          <div css={mobileMenu}>
+            <div css={mobileMenu__bars} />
+            <div css={mobileMenu__bars} />
+            <div css={mobileMenu__bars} />
+          </div>
         </nav>
         <div css={subHeader__wrap}>
           <div css={subHeader}>
             <div css={subHeader__left} />
             <div css={subHeader__right}>
-              <div css={subHeader__search} />
+              <div css={[subHeader__search__input,searchVis?subHeader__search__inputExpanded:""]}>
+                <input 
+                  css={subHeader__search__inputInner}
+                  type="text"
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  placeholder="Search"
+                  ref={searchInputEl}
+                  value={searchTerm}
+                />
+                <div 
+                  css={subHeader__search__collapse}
+                  onClick={() => setSearchVis(false)}
+                >+</div>
+              </div>
+              <div 
+                css={subHeader__search}
+                onClick={searchClick}
+              />
             </div>
           </div>
         </div>
