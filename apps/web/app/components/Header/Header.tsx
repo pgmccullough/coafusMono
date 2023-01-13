@@ -22,7 +22,7 @@ const header = css`
   width: 100%;
   background: #fff;
   padding: 1rem 0;
-  z-index: 2;
+  z-index: 3;
   top: 0;
   ${screen.tablet} {
     height: 4rem;
@@ -37,9 +37,12 @@ const header__title = css`
   font-weight: 300;
   line-height: 1.5rem;
   text-align: left;
-  color: #000;
   width: 12rem;
   margin-left: 5.5rem;
+  & a {
+    color: #000;
+    text-decoration: none;
+  }
   ${screen.tablet} {
     width: 100vw;
     margin-left: 0;
@@ -123,7 +126,7 @@ const header__subLink = css`
 const subHeader__wrap = css`
   position: fixed;
   filter: drop-shadow(0 0 6px #000);
-  z-index: 1;
+  z-index: 2;
   top: 5rem;
   ${screen.tablet} {
     top: 4rem;
@@ -164,7 +167,7 @@ const subHeader__right = css`
 
 const subHeader__arms = css`
   position: fixed;
-  z-index: 2;
+  z-index: 3;
   width: 69px;
   height: 94px;
   top: 0.5rem;
@@ -267,6 +270,7 @@ const mobileMenuContainer = css`
   padding: 2rem;
   text-transform: uppercase;
   line-height: 2rem;
+  z-index: 1;
   & a {
     color: #ccc;
     display: block;
@@ -297,7 +301,7 @@ export const Header = () => {
     const searchInputEl = useRef<HTMLInputElement>( null );
 
     const [{ data }] = matches;
-    const { pages, user } = (data as RootLoaderData) || {};
+    const { pages } = (data as RootLoaderData) || {};
 
     let topLvlPages = pages.filter(
         (page:any) => page.topLvl===true
@@ -320,7 +324,7 @@ export const Header = () => {
     ) : (
       <>
         <nav css={header}>
-          <h1 css={header__title}>College of Arms Foundation</h1>
+          <h1 css={header__title}><NavLink to="/">College of Arms Foundation</NavLink></h1>
           <div css={header__links}>
             {topLvlPages?.map((page:any) => {
                 const subPages = pages.filter((subPage:any) => 
@@ -393,7 +397,7 @@ export const Header = () => {
             </div>
           </div>
         </div>
-        <div css={subHeader__arms} />
+        <NavLink to="/"><div css={subHeader__arms} /></NavLink>
         <div css={[mobileMenuContainer,mobileMenuExpand?mobileMenuContainer__vis:""]}>
           {topLvlPages?.map((page:any) => {
             const subPages = pages.filter((subPage:any) => 

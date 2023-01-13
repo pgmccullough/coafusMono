@@ -17,6 +17,7 @@ import {
     ScrollRestoration,
 } from '@remix-run/react';
 import { Header } from './components/Header/Header';
+import { Footer } from './components/Footer/Footer';
 
 import { fontFace } from './assets/typography/typography';
 import uiStyles from '@org/ui/styles.css';
@@ -83,6 +84,7 @@ export default function App() {
                 <Global styles={globalCSS} />
                 <Header />
                 <Outlet />
+                <Footer />
                 <ScrollRestoration />
                 <Scripts />
                 <LiveReload />

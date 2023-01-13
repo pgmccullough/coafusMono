@@ -9,14 +9,15 @@ const screen = {
 
 const content = css`
   position: relative;
-  top: 5.5rem;
+  top: 6.5rem;
+  margin-bottom: 10rem;
   font-family: 'COAF Sans';
   & h1 {
     font-family: 'COAF Serif';
     font-weight: 300;
   }
   ${screen.tablet} {
-    top: 3rem;
+    top: 7rem;
   }
 `;
 

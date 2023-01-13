@@ -15,8 +15,10 @@ const slides = css`
   overflow: hidden;
   width: 100vw;
   min-height: 20rem;
-  height: 40vh;
+  //height: 40vh;
   border-bottom: 6px #010193 solid;
+  margin-top: -5rem;
+  padding-top: 3.5rem;
   &::before {
     box-shadow: inset 0px 0px 10px 0px #000;
     position: absolute;
@@ -29,6 +31,8 @@ const slides = css`
   ${screen.tablet} {
     min-height: 30rem;
     height: 70vh;
+    margin-top: -6.5rem;
+    padding-top: 0;
   }
 `;
 
@@ -51,7 +55,6 @@ const slide__text = css`
   flex-direction: column;
   align-items: center;
   min-height: 20rem;
-  height: 40vh;
   color: #fff;
   font-family: 'COAF Sans';
   text-align: center;
@@ -87,7 +90,7 @@ const featured__image = css`
   ${screen.tablet} {
     display: block;
     & img {
-      margin-top: 6rem;
+      margin-top: 7.5rem;
       width: 70%;
       box-shadow: 0 0 6px 0 #000;
     }
