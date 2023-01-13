@@ -1,6 +1,7 @@
 import { CollectionConfig } from 'payload/types';
 import formatSlug from '../utilities/formatSlug';
 import { Image } from '../blocks/Image';
+import { HeroSlide } from '../blocks/HeroSlide';
 import { CallToAction } from '../blocks/CallToAction';
 import { Content } from '../blocks/Content';
 import { mediaSlug } from './Media';
@@ -117,7 +118,7 @@ export const Pages: CollectionConfig = {
             label: 'Page Layout',
             type: 'blocks',
             minRows: 1,
-            blocks: [CallToAction, Content, Image],
+            blocks: [CallToAction, Content, HeroSlide, Image],
         },
         {
             name: 'meta',
