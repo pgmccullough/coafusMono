@@ -3,7 +3,7 @@ import type { Block } from 'payload/types';
 type Data = Record<string, unknown>;
 
 export const HeroSlide: Block = {
-  slug: 'heroslide',
+  slug: 'heroslides',
   labels: {
       singular: 'Hero Slide',
       plural: 'Hero Slides',
@@ -46,7 +46,7 @@ export const HeroSlide: Block = {
               type: 'richText'
             },
             {
-              name: 'page',
+              name: 'link',
               label: 'Page to link to',
               type: 'relationship',
               relationTo: 'pages',

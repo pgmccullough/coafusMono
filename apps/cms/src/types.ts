@@ -63,6 +63,11 @@ export interface Media {
 export interface Page {
   id: string;
   title: string;
+  inNav?: boolean;
+  topLvl?: boolean;
+  isDummy?: boolean;
+  parentNav?: string[] | Page[];
+  navOrder?: number;
   image?: string | Media;
   public?: boolean;
   layout: (
@@ -89,6 +94,21 @@ export interface Page {
         id?: string;
         blockName?: string;
         blockType: 'content';
+      }
+    | {
+        heroSlides: {
+          backgroundImage: Media;
+          featuredImage?: Media;
+          title?: string;
+          description?: {
+            [k: string]: unknown;
+          }[];
+          link?: Page;
+          id?: string;
+        }[];
+        id?: string;
+        blockName?: string;
+        blockType: 'heroslides';
       }
     | {
         image: string | Media;
