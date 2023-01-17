@@ -3,6 +3,7 @@
 import {
   Form,
   NavLink,
+  useLocation,
   useMatches,
   useSubmit
 } from '@remix-run/react';
@@ -300,10 +301,12 @@ const mobileMenuContainer__vis = css`
 export const Header = () => {
     const matches = useMatches();
 
+    const searchQuery = useLocation().search && decodeURIComponent(useLocation().search.split("?q=")[1]).replaceAll("+"," ");
+
     const submit = useSubmit();
 
-    const [ searchVis, setSearchVis ] = useState<boolean>( false );
-    const [ searchTerm, setSearchTerm ] = useState<string>( "" );
+    const [ searchVis, setSearchVis ] = useState<boolean>( searchQuery ? true : false );
+    const [ searchTerm, setSearchTerm ] = useState<string>( searchQuery ?? "" );
     const [ mobileMenuExpand, setMobileMenuExpand ] = useState<boolean>( false );
 
     const searchInputEl = useRef<HTMLInputElement>( null );
