@@ -74,7 +74,7 @@ export const Footer = () => {
             :""
         );
         return (
-          <div>
+          <div key={page.id}>
             {!page.isDummy
               ?<h1>
                 <NavLink

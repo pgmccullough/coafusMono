@@ -7,7 +7,6 @@ import type {
     MetaFunction,
     TypedResponse,
 } from '@remix-run/node';
-import { redirect } from '@remix-run/node';
 import {
     Links,
     LiveReload,
@@ -15,6 +14,7 @@ import {
     Outlet,
     Scripts,
     ScrollRestoration,
+    useLocation
 } from '@remix-run/react';
 import { Header } from './components/Header/Header';
 import { Footer } from './components/Footer/Footer';
@@ -47,7 +47,6 @@ export const loader: LoaderFunction = async ({
     context: { payload, user },
     request,
 }): Promise<RootLoaderData | TypedResponse<never>> => {
-
     const { docs: pages } = await payload.find({
         limit: 100,
         collection: 'pages',
@@ -71,26 +70,27 @@ body{
 `
 
 export default function App() {
-    return (
-        <html lang="en">
-            <head>
-                <Meta />
-                <Links />
-                {typeof document === "undefined"
-                ? "__STYLES__"
-                : null}
-            </head>
-            <body>
-                <Global styles={globalCSS} />
-                <Header />
-                <Outlet />
-                <Footer />
-                <ScrollRestoration />
-                <Scripts />
-                <LiveReload />
-            </body>
-        </html>
-    );
+
+  return (
+      <html lang="en">
+          <head>
+              <Meta />
+              <Links />
+              {typeof document === "undefined"
+              ? "__STYLES__"
+              : null}
+          </head>
+          <body>
+              <Global styles={globalCSS} />
+              <Header />
+              <Outlet />
+              <Footer />
+              <ScrollRestoration />
+              <Scripts />
+              <LiveReload />
+          </body>
+      </html>
+  );
 }
 
 export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {

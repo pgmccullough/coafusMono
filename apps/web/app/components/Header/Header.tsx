@@ -1,7 +1,12 @@
 /** @jsxImportSource @emotion/react */
 
-import { NavLink, useMatches } from '@remix-run/react';
-import { useRef, useState } from 'react';
+import {
+  Form,
+  NavLink,
+  useMatches,
+  useSubmit
+} from '@remix-run/react';
+import { useEffect, useRef, useState } from 'react';
 import type { RootLoaderData } from '~/root';
 import { css } from '@emotion/react';
 import redStripes from '../../assets/subHead-red-stripes.svg';
@@ -211,6 +216,7 @@ const subHeader__search__collapse = css`
 `;
 
 const subHeader__search = css`
+border: 0;
   background: #010193 url('${searchIcon}') no-repeat;
   background-size: 2rem;
   background-position: 1rem;
@@ -294,6 +300,8 @@ const mobileMenuContainer__vis = css`
 export const Header = () => {
     const matches = useMatches();
 
+    const submit = useSubmit();
+
     const [ searchVis, setSearchVis ] = useState<boolean>( false );
     const [ searchTerm, setSearchTerm ] = useState<string>( "" );
     const [ mobileMenuExpand, setMobileMenuExpand ] = useState<boolean>( false );
@@ -309,10 +317,11 @@ export const Header = () => {
         (a:any,b:any)=>a.navOrder-b.navOrder
     )
 
-    const searchClick = () => {
+    const searchClick = (e: any) => {
+      e.preventDefault();
       if(searchVis) {
-        // Search function goes here
-        console.log(searchTerm);
+        console.log("Let's do it! Let's submit ",e.currentTarget.form);
+        submit(e.currentTarget.form)
       } else {
         setSearchVis(true);
         searchInputEl.current?.focus();
@@ -372,31 +381,34 @@ export const Header = () => {
             <div css={[mobileMenu__bars,mobileMenuExpand?mobileMenuBar__close3:""]} />
           </div>
         </nav>
-        <div css={subHeader__wrap}>
-          <div css={subHeader}>
-            <div css={subHeader__left} />
-            <div css={subHeader__right}>
-              <div css={[subHeader__search__input,searchVis?subHeader__search__inputExpanded:""]}>
-                <input 
-                  css={subHeader__search__inputInner}
-                  type="text"
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  placeholder="Search"
-                  ref={searchInputEl}
-                  value={searchTerm}
+        <Form method="get" action="/search">
+          <div css={subHeader__wrap}>
+            <div css={subHeader}>
+              <div css={subHeader__left} />
+              <div css={subHeader__right}>
+                <div css={[subHeader__search__input,searchVis?subHeader__search__inputExpanded:""]}>
+                  <input 
+                    css={subHeader__search__inputInner}
+                    type="text"
+                    name="q"
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    placeholder="Search"
+                    ref={searchInputEl}
+                    value={searchTerm}
+                  />
+                  <div 
+                    css={subHeader__search__collapse}
+                    onClick={() => setSearchVis(false)}
+                  >+</div>
+                </div>
+                <button 
+                  css={subHeader__search}
+                  onClick={searchClick}
                 />
-                <div 
-                  css={subHeader__search__collapse}
-                  onClick={() => setSearchVis(false)}
-                >+</div>
               </div>
-              <div 
-                css={subHeader__search}
-                onClick={searchClick}
-              />
             </div>
           </div>
-        </div>
+        </Form>
         <NavLink to="/"><div css={subHeader__arms} /></NavLink>
         <div css={[mobileMenuContainer,mobileMenuExpand?mobileMenuContainer__vis:""]}>
           {topLvlPages?.map((page:any) => {
