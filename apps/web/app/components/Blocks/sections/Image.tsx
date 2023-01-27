@@ -5,11 +5,6 @@ import { css } from '@emotion/react';
 
 type ImageProps = Page['layout'][0]
 
-const screen = {
-  tablet: "@media (min-width: 680px)",
-  desktop: "@media (min-width: 920px)"
-}
-
 const imageWrap = css`
   width: 100%;
   text-align: center;
