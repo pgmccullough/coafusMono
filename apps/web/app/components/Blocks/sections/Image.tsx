@@ -1,8 +1,23 @@
 import type { Page } from '@org/cms';
 import { RichText } from '../RichText';
 import { sizes } from './sizes';
+import { css } from '@emotion/react';
 
 type ImageProps = Page['layout'][0]
+
+const screen = {
+  tablet: "@media (min-width: 680px)",
+  desktop: "@media (min-width: 920px)"
+}
+
+const imageWrap = css`
+  width: 100%;
+  text-align: center;
+  & img {
+    object-fit: contain;
+    max-width: 100%;
+  }
+`;
 
 export const Image = (props: ImageProps) => {
     if (props.blockType !== 'image') return null;
@@ -24,7 +39,7 @@ export const Image = (props: ImageProps) => {
             .join(', ');
 
         return (
-            <div className={`image-wrap image-${type}`}>
+            <div css={imageWrap}>
                 <img
                     src={`/media/${filenameToRender}`}
                     alt={image.alt}
@@ -33,7 +48,7 @@ export const Image = (props: ImageProps) => {
                     height={height}
                 />
                 {caption && (
-                    <RichText className="image-caption" content={caption} />
+                    <RichText content={caption} />
                 )}
             </div>
         );

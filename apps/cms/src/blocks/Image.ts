@@ -15,26 +15,6 @@ export const Image: Block = {
             required: true,
         },
         {
-            name: 'type',
-            label: 'Type',
-            type: 'radio',
-            defaultValue: 'normal',
-            options: [
-                {
-                    label: 'Card',
-                    value: 'card',
-                },
-                {
-                    label: 'Feature',
-                    value: 'feature',
-                },
-            ],
-            required: true,
-            admin: {
-                layout: 'horizontal',
-            },
-        },
-        {
             name: 'caption',
             label: 'Caption',
             type: 'richText',
