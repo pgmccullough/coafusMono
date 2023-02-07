@@ -10,6 +10,7 @@
         "clean": "turbo run clean && rm -rf node_modules",
         "build": "turbo run build",
         "serve": "turbo run serve",
+        "start": "turbo run serve",
         "dev": "turbo run dev --parallel",
         "lint": "turbo run lint",
         "format": "prettier --write \"**/*.{ts,tsx,md}\""
