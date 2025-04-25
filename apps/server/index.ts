@@ -11,10 +11,8 @@ const { dotenv } = shared;
 const { createRequestHandler } = webExpressAdapter;
 
 // Loading environment variables, .env > .env.local
-const config = dotenv.config();
-
-if (config.error) {
-    throw config.error;
+if (process.env.NODE_ENV !== 'production') {
+  dotenv.config();
 }
 
 const localEnvFilePath = path.resolve(process.cwd(), '.env.local');
